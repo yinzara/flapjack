@@ -39,21 +39,21 @@ else
   contact_items.map { |item| item[contact_namespace] }.compact
 end
 
-contact_ids = contacts.map do |contact|
+all_contact_ids = contacts.map do |contact|
   resource_action = contact.delete('action').to_sym || :create
   flapjack_contact contact['id'] do
     info contact
     action resource_action
   end
-  if resource_action == :delete || resource_action == :freeze
-    nil
-  else
+  if resource_action != :delete && resource_action != :freeze && (node['flapjack']['contacts']['all_entity_attribute'].nil? || contact.delete(node['flapjack']['contacts']['all_entity_attribute']) == true)
     contact['id']
+  else 
+    nil
   end
 end.compact
 
 if node['flapjack']['contacts']['manage_all_entity']
   flapjack_entity 'ALL' do
-    info(:name => 'ALL', :contacts => contact_ids)
+    info(:name => 'ALL', :contacts => all_contact_ids)
   end
 end
