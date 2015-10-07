@@ -45,6 +45,7 @@ all_contact_ids = contacts.map do |contact|
     info contact
     action resource_action
   end
+  
   if resource_action != :delete && resource_action != :freeze && (node['flapjack']['contacts']['all_entity_attribute'].nil? || contact.delete(node['flapjack']['contacts']['all_entity_attribute']) == true)
     contact['id']
   else 
