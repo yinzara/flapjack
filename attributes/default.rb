@@ -21,3 +21,4 @@ default['flapjack']['contacts']['data_bag']['name'] = 'flapjack_contacts'
 default['flapjack']['contacts']['data_bag']['namespace'] = nil
 
 default['flapjack']['contacts']['manage_all_entity'] = false
+default['flapjack']['contacts']['all_entity_attribute'] = nil
