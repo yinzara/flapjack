@@ -42,7 +42,9 @@ end
 all_contact_ids = contacts.map do |contact|
   resource_action = (contact.delete('action') || (contact["email"].nil?)?'delete':'create').to_sym
   flapjack_contact contact['id'] do
-    info contact
+    info contact.select do |key, value|
+      [:id, :first_name, :last_name, :email, :timezone, :tags].include?(key)
+    end
     action resource_action
   end
   
