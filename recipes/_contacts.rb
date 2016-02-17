@@ -40,7 +40,7 @@ else
 end
 
 all_contact_ids = contacts.map do |contact|
-  resource_action = (contact.delete('action') || "create").to_sym
+  resource_action = (contact.delete('action') || (contact["email"].nil?)?'delete':'create').to_sym
   flapjack_contact contact['id'] do
     info contact
     action resource_action
